@@ -15,7 +15,7 @@
 * **aegisport** faz varredura de portas TCP usando `connect()` **não bloqueante** + `poll()` (concorrência alta), com `-v` (verbose) e `--json` para exportar resultados.
 * **Script `aegis`**: interface unificada em **português** para “verificar” pastas, “vigiar” em loop e escanear “portas”.
 
-## ✨ Recursos
+## Recursos
 
 ### aegisFIM
 
