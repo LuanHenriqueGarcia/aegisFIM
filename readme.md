@@ -243,4 +243,4 @@ Depois:
 
 ##  Créditos
 
-Feito com C, café e teimosia. 😄
+Feito com C, café e teimosia. 
