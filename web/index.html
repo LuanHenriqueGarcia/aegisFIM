@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="pt-br">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Aegis — Suite de Segurança</title>
+<link rel="stylesheet" href="/style.css" />
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <img src="/img/image.png" alt="Aegis" class="logo" />
+      <div class="title">
+        <h1>Aegis</h1>
+        <p class="muted">FIM · Scanner · Honeypot · Senhas</p>
+      </div>
+    </div>
+    <nav class="tabs">
+      <a href="#gen">Gerador</a>
+      <a href="#vault">Cofre</a>
+      <a href="#fim">FIM</a>
+      <a href="#scan">Scan</a>
+    </nav>
+  </header>
+
+  <section id="gen" class="card">
+    <h3> Gerador de Senhas</h3>
+    <div class="row">
+      <div>
+        <label>Tamanho</label>
+        <div class="inline">
+          <input id="pwlen" type="number" min="4" max="128" value="16" />
+          <input id="pwlen-range" type="range" min="4" max="128" value="16" />
+        </div>
+      </div>
+      <div>
+        <label>Conjuntos</label>
+        <div class="chips">
+          <label><input type="checkbox" id="set-a" checked /> a–z</label>
+          <label><input type="checkbox" id="set-A" checked /> A–Z</label>
+          <label><input type="checkbox" id="set-0" checked /> 0–9</label>
+          <label><input type="checkbox" id="set-s" checked /> símbolos</label>
+        </div>
+        <label class="tiny"><input type="checkbox" id="allow-ambig" /> permitir caracteres ambíguos</label>
+      </div>
+      <div class="align-end">
+        <button id="btn-gen">Gerar</button>
+      </div>
+    </div>
+    <div class="out-row">
+      <input id="pwout" class="mono" readonly value="—" />
+      <button id="btn-copy">Copiar</button>
+    </div>
+  </section>
+
+  <section id="vault" class="card">
+    <h3> Cofre de Senhas (v1)</h3>
+    <p class="muted">Localhost apenas. Para produção vamos trocar o envio da senha-mestra por POST + token.</p>
+    <div class="row">
+      <div>
+        <label>Senha-mestra</label>
+        <input id="mpw" type="password" placeholder="••••••••" />
+      </div>
+      <div>
+        <label>Arquivo do cofre</label>
+        <input id="vaultfile" value=".aegisfim/vault.apv" />
+      </div>
+      <div class="align-end">
+        <button id="btn-vault-init">Inicializar</button>
+      </div>
+    </div>
+
+    <details class="pad">
+      <summary><b>Adicionar / Atualizar</b></summary>
+      <div class="row">
+        <div><label>Site</label><input id="site" placeholder="ex: github.com" /></div>
+        <div><label>Usuário</label><input id="user" placeholder="ex: luan" /></div>
+        <div><label>Senha (opcional)</label><input id="pass" placeholder="em branco = gerar" /></div>
+        <div>
+          <label>Gerar c/ tamanho</label>
+          <div class="inline">
+            <input id="genlen" type="number" min="8" max="128" value="20" />
+            <button id="btn-vault-add">Salvar</button>
+          </div>
+          <div class="chips tiny">
+            <label><input type="checkbox" id="vset-a" checked /> a</label>
+            <label><input type="checkbox" id="vset-A" checked /> A</label>
+            <label><input type="checkbox" id="vset-0" checked /> 0</label>
+            <label><input type="checkbox" id="vset-s" checked /> s</label>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <div class="row">
+      <div class="inline">
+        <input id="site-get" placeholder="site para obter/remover" />
+        <button id="btn-vault-get">Obter</button>
+        <button id="btn-vault-rm" class="danger">Remover</button>
+      </div>
+      <div class="align-end">
+        <button id="btn-vault-list">Listar</button>
+      </div>
+    </div>
+    <pre id="vaultout">—</pre>
+  </section>
+
+  <section id="fim" class="card">
+    <h3> Verificar Integridade (FIM)</h3>
+    <div class="row">
+      <div><label>Diretório</label><input id="fimdir" value="." /></div>
+      <div class="align-end"><button id="btn-fim">Verificar</button></div>
+    </div>
+    <pre id="fimout">—</pre>
+  </section>
+
+  <section id="scan" class="card">
+    <h3> Port Scan</h3>
+    <div class="row">
+      <div><label>Host</label><input id="scanhost" value="127.0.0.1" /></div>
+      <div><label>Portas</label><input id="scanports" value="1-1024" /></div>
+      <div class="align-end"><button id="btn-scan">Scan</button></div>
+    </div>
+    <pre id="scanout">—</pre>
+  </section>
+
+  <footer class="footer">
+    <small>Feito com <span class="heart">♥</span> por Luan — rodando em <code>127.0.0.1</code></small>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

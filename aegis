@@ -1,0 +1,22 @@
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BIN_FIM="$ROOT/build/aegisfim"
+BIN_PORT="$ROOT/build/aegisport"
+
+if [[ ! -x "$BIN_FIM" || ! -x "$BIN_PORT" ]]; then
+  echo " Compilando (primeira execução)..."
+  cmake -S "$ROOT" -B "$ROOT/build" >/dev/null
+  cmake --build "$ROOT/build" -j >/dev/null
+fi
+
+CMD="${1:-verificar}"
+shift || true
+
+case "$CMD" in
+  verificar)  DIR="${1:-.}";         exec "$BIN_FIM" verificar -r "$DIR" ;;
+  vigiar)     DIR="${1:-.}";  INT="${2:-3}"; exec "$BIN_FIM" vigiar -r "$DIR" -i "$INT" ;;
+  interface)  DIR="${1:-.}";  INT="${2:-3}"; exec "$BIN_FIM" interface -r "$DIR" -i "$INT" ;;
+  portas)     HOST="${1:-127.0.0.1}"; PORTS="${2:-1-1024}"; shift 2 || true; exec "$BIN_PORT" -h "$HOST" -p "$PORTS" "$@" ;;
+  *) echo "Uso: ./aegis [verificar [DIR] | vigiar [DIR] [SEG] | interface [DIR] [SEG] | portas HOST [PORTAS]]"; exit 1 ;;
+esac
