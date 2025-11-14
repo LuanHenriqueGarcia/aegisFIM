@@ -18,6 +18,7 @@ add_executable(aegisfim
   src/hash.c
   src/baseline.c
   src/util.c
+  src/check.c
   src/tui.c
 )
 

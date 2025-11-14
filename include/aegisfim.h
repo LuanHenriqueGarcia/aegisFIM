@@ -35,7 +35,7 @@ int baseline_load_tsv(const char *file, RecVec *v);
 
 typedef struct {
     size_t added, removed, modified, unchanged;
-} DiffSummary;
+} DiffSummary; 
 
 DiffSummary diff_and_report(const RecVec *base, const RecVec *curr);
 
